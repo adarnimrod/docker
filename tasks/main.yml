@@ -70,3 +70,5 @@
 
 - include: docker_gc.yml
   when: docker_gc|default(False)
+
+- include: ufw.yml

@@ -63,9 +63,9 @@ at: https://www.shore.co.il/git/.
 TODO
 ----
 
-- Check if UFW is enabled, if so allow forwarding.
 - Test working Ansible Docker modules.
 - Test working docker-gc.
+- Test if forwarding is allowed in UFW.
 - email alias.
 - flush handlers and wait for socket?
 - Log to syslog.

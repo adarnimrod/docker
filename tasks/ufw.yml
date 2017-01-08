@@ -1,0 +1,13 @@
+---
+- name: Check if UFW is installed and enabled
+  check_mode: True
+  ignore_errors: True
+  register: docker_check_ufw
+  ufw:
+      state: enabled
+
+- name: Allow forwarding in UFW
+  when: "'Status: active' in check_ufw.msg"
+  ufw:
+      direction: routed
+      policy: accept
