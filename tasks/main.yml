@@ -40,20 +40,11 @@
       update_cache: yes
       cache_valid_time: 3600
 
-- name: Allow ip forwarding
-  ignore_errors: yes
-  lineinfile:
-      create: no
-      dest: /etc/default/ufw
-      line: DEFAULT_FORWARD_POLICY="ACCEPT"
-      regexp: ^DEFAULT_FORWARD_POLICY
-  notify:
-      - Reload UFW
-
 - name: pip install
   with_items:
-      - docker-compose
-      - docker-py
+      - 'docker-compose >= 1.7.0'
+      - 'docker-py >= 0.3.0'
+      - 'pyyaml >= 3.11'
   pip:
       name: '{{ item }}'
       state: present
