@@ -1,0 +1,16 @@
+---
+- name: Get Docker garbage collector script
+  get_url:
+      url: https://raw.githubusercontent.com/spotify/docker-gc/master/docker-gc
+      dest: /usr/local/bin/docker-gc
+      owner: root
+      group: root
+      mode: 0o0755
+
+- name: Add Docker garbage collector Cron job
+  cron:
+      name: Docker garbage collector
+      job: docker-gc 2>&1 | logger
+      special_time: daily
+      user: root
+      state: present

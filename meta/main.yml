@@ -1,15 +1,14 @@
 galaxy_info:
   author: Nimrod Adar
-  description: An example Ansible role
+  description: Provision Docker engine
   company: Shore technologies
   license: MIT
   min_ansible_version: 2.0
   platforms:
-  - name: OpenBSD
-    versions:
-    - 6.0
   - name: Ubuntu
     versions:
     - xenial
-  galaxy_tags: [ ansible ]
-dependencies: []
+  galaxy_tags: [ docker ]
+dependencies:
+    - name: python27
+      src: adarnimrod.python27

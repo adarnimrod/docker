@@ -6,12 +6,10 @@ sudo: True
 group: beta
 services: [docker]
 env:
-    - platform: openbsd
-      driver: vagrant
     - platform: xenial
       driver: vagrant
-    - driver: docker
-      platform: all
+    - platform: trusty
+      driver: vagrant
 matrix:
     allow_failures:
         - python: "3.2"

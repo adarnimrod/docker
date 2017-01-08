@@ -1,12 +1,12 @@
 ---
-- hosts: example-openbsd
+- hosts: docker-openbsd
   gather_facts: false
   roles: [openbsd-bootstrap]
 
-- hosts: example-xenial
+- hosts: docker-xenial
   gather_facts: false
   roles: [debian-bootstrap]
 
 - hosts: all
   roles:
-    - role: example
+    - role: docker

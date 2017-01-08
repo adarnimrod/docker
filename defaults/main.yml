@@ -1,2 +1,11 @@
 ---
-# defaults file for example
+# defaults file for docker
+
+docker_users:
+    - '{{ ansible_user_id }}'
+    - '{{ ansible_env.SUDO_USER }}'
+
+docker_config:
+    'storage-driver': "{{ 'overlay2' if ansible_kernel|version_compare('4.4', '>=') else 'overlay' }}"
+
+docker_gc: True

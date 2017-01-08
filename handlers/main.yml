@@ -1,2 +1,12 @@
 ---
-# handlers file for example
+# handlers file for docker
+
+- name: Restart Docker
+  service:
+      name: docker
+      state: restarted
+
+- name: Restart UFW
+  service:
+      name: ufw
+      state: restarted

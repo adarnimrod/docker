@@ -1,8 +1,81 @@
 ---
-# tasks file for example
+# tasks file for docker
 
 - name: Assertions
   assert:
     that:
-        - ansible_os_family in ['OpenBSD', 'Debian']
-        - ansible_distribution_release in ['6.0', 'xenial']
+        - ansible_os_family == 'Debian'
+        - ansible_distribution_release in ['trusty', 'xenial']
+        - docker_config|to_json is defined
+        - docker_users is iterable
+
+- name: APT install pre-requisites
+  with_dict:
+      'apt-transport-https': present
+      'ca-certificates': present
+      'docker.io': absent
+      'lxc-docker': absent
+  apt:
+      name: '{{ item.key }}'
+      state: '{{ item.value }}'
+      update_cache: yes
+      cache_valid_time: 3600
+
+- name: Add APT repo key
+  apt_key:
+      keyserver: hkp://p80.pool.sks-keyservers.net:80
+      id: 58118E89F3A912897C070ADBF76221572C52609D
+      state: present
+
+- name: Add APT repo
+  apt_repository:
+      repo: 'deb https://apt.dockerproject.org/repo {{ ansible_distribution|lower }}-{{ ansible_distribution_release }} main'
+      state: present
+      update_cache: yes
+
+- name: APT install
+  apt:
+      name: docker-engine
+      state: present
+      update_cache: yes
+      cache_valid_time: 3600
+
+- name: Allow ip forwarding
+  ignore_errors: yes
+  lineinfile:
+      create: no
+      dest: /etc/default/ufw
+      line: DEFAULT_FORWARD_POLICY="ACCEPT"
+      regexp: ^DEFAULT_FORWARD_POLICY
+  notify:
+      - Reload UFW
+
+- name: pip install
+  with_items:
+      - docker-compose
+      - docker-py
+  pip:
+      name: '{{ item }}'
+      state: present
+
+- name: Configure
+  file:
+      content: '{{ docker_config|to_nice_json }}'
+      owner: root
+      group: root
+      mode: 0o0600
+      state: present
+      create: yes
+  notify:
+      - Restart Docker
+
+- name: Add users to the docker group
+  with_items: '{{ docker_users }}'
+  user:
+      append: yes
+      name: '{{ item }}'
+      groups: docker
+      state: present
+
+- include: docker_gc.yml
+  when: docker_gc|default(False)

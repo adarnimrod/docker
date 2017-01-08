@@ -1,12 +1,10 @@
-Example
+Docker
 #######
 
-.. image:: https://travis-ci.org/adarnimrod/example.svg?branch=master
-    :target: https://travis-ci.org/adarnimrod/example
+.. image:: https://travis-ci.org/adarnimrod/docker.svg?branch=master
+    :target: https://travis-ci.org/adarnimrod/docker
 
-An (empty) example Ansible role complete with working tests out of the box. For
-more information read the `blog post
-<https://www.shore.co.il/blog/ansible-example-role/>`_.
+Provision Docker enging.
 
 Requirements
 ------------
@@ -61,3 +59,15 @@ Nimrod Adar, `contact me <nimrod@shore.co.il>`_ or visit my `website
 <https://www.shore.co.il/>`_. Patches are welcome via `git send-email
 <http://git-scm.com/book/en/v2/Git-Commands-Email>`_. The repository is located
 at: https://www.shore.co.il/git/.
+
+TODO
+----
+
+- Check if UFW is enabled, if so allow forwarding.
+- Test working Ansible Docker modules.
+- Test working docker-gc.
+- email alias.
+- flush handlers and wait for socket?
+- Log to syslog.
+- Boot config?
+- More configuration options?
