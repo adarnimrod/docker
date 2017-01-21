@@ -1,6 +1,6 @@
 ---
 language: python
-python: ["2.7", "3.2"]
+python: ["2.7", "3.5"]
 dist: trusty
 sudo: True
 group: beta
@@ -11,8 +11,9 @@ env:
     - platform: trusty
       driver: vagrant
 matrix:
+    fast_finish: True
     allow_failures:
-        - python: "3.2"
+        - python: "3.5"
 cache:
   - pip
   - directories:
