@@ -4,12 +4,12 @@ python: ["2.7", "3.5"]
 dist: trusty
 sudo: True
 group: beta
-services: [docker]
 env:
-    - platform: xenial
-      driver: vagrant
-    - platform: trusty
-      driver: vagrant
+    global:
+        - VBOX_MEMORY=2048
+    matrix:
+        - platform: xenial
+        - platform: trusty
 matrix:
     fast_finish: True
     allow_failures:
@@ -30,8 +30,9 @@ install:
 
 script:
   - pre-commit run --all-files
-  - travis_wait 45 molecule test --driver $driver --platform $platform
+  - travis_wait 45 molecule test --platform $platform
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
   email: false
+  on_failure: never
