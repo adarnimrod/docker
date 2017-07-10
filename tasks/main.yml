@@ -67,6 +67,8 @@
       name: '{{ item }}'
       groups: docker
       state: present
+  notify:
+      - Reset connection
 
 - include: docker_gc.yml
   when: docker_gc|default(False)

@@ -10,3 +10,6 @@
   service:
       name: ufw
       state: restarted
+
+- name: Reset connection
+  meta: reset_connection
