@@ -4,7 +4,7 @@ Docker
 .. image:: https://travis-ci.org/adarnimrod/docker.svg?branch=master
     :target: https://travis-ci.org/adarnimrod/docker
 
-Provision Docker enging.
+Provision Docker engine.
 
 Requirements
 ------------
